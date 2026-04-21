@@ -9,6 +9,7 @@ import { FadeUp } from '@/components/Motion'
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPw, setShowPw] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const router = useRouter()
@@ -62,8 +63,14 @@ export default function LoginPage() {
             </div>
             <div>
               <label className="block text-sm font-medium text-white/70 mb-2">Password</label>
-              <input type="password" required value={password} onChange={e => setPassword(e.target.value)}
-                className="input-cyber" placeholder="••••••••" />
+              <div className="relative">
+                <input type={showPw ? 'text' : 'password'} required value={password} onChange={e => setPassword(e.target.value)}
+                  className="input-cyber pr-12" placeholder="••••••••" />
+                <button type="button" onClick={() => setShowPw(v => !v)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white text-xs">
+                  {showPw ? 'Hide' : 'Show'}
+                </button>
+              </div>
             </div>
             <button type="submit" disabled={loading}
               className="btn-neon w-full py-3 text-base disabled:opacity-50 disabled:cursor-not-allowed">

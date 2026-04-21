@@ -7,6 +7,7 @@ import { createClient } from '@/lib/supabase/client'
 export default function ResetPasswordPage() {
   const [password, setPassword] = useState('')
   const [confirm, setConfirm] = useState('')
+  const [showPw, setShowPw] = useState(false)
   const [msg, setMsg] = useState('')
   const [ready, setReady] = useState(false)
   const router = useRouter()
@@ -34,8 +35,9 @@ export default function ResetPasswordPage() {
     if (password.length < 6) { setMsg('Minimum 6 characters'); return }
     const { error } = await supabase.auth.updateUser({ password })
     if (error) { setMsg(error.message); return }
-    setMsg('✓ Password updated! Redirecting...')
-    setTimeout(() => router.push('/dashboard'), 1500)
+    await supabase.auth.signOut()
+    setMsg('✓ Password updated! Please sign in with your new password.')
+    setTimeout(() => router.push('/auth/login'), 2000)
   }
 
   return (
@@ -46,9 +48,15 @@ export default function ResetPasswordPage() {
           <p className={`text-sm ${msg ? 'text-red-400' : 'text-white/50'}`}>{msg || 'Verifying reset link…'}</p>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
-            <input type="password" placeholder="New password" required minLength={6}
-              value={password} onChange={e => setPassword(e.target.value)} className="input-cyber" />
-            <input type="password" placeholder="Confirm password" required
+            <div className="relative">
+              <input type={showPw ? 'text' : 'password'} placeholder="New password" required minLength={6}
+                value={password} onChange={e => setPassword(e.target.value)} className="input-cyber pr-12" />
+              <button type="button" onClick={() => setShowPw(v => !v)}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-white/40 hover:text-white text-xs">
+                {showPw ? 'Hide' : 'Show'}
+              </button>
+            </div>
+            <input type={showPw ? 'text' : 'password'} placeholder="Confirm password" required
               value={confirm} onChange={e => setConfirm(e.target.value)} className="input-cyber" />
             {msg && <p className={`text-sm ${msg.startsWith('✓') ? 'text-neon-green' : 'text-red-400'}`}>{msg}</p>}
             <button type="submit" className="btn-neon w-full py-3">Update Password</button>
