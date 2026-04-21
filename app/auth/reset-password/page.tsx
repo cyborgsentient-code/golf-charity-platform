@@ -13,10 +13,19 @@ export default function ResetPasswordPage() {
   const supabase = createClient()
 
   useEffect(() => {
-    // Supabase puts the token in the hash — exchangeCodeForSession handles it
-    supabase.auth.onAuthStateChange((event) => {
-      if (event === 'PASSWORD_RECOVERY') setReady(true)
-    })
+    const hash = window.location.hash
+    const params = new URLSearchParams(hash.slice(1))
+    const access_token = params.get('access_token')
+    const refresh_token = params.get('refresh_token')
+
+    if (access_token && refresh_token) {
+      supabase.auth.setSession({ access_token, refresh_token }).then(({ error }) => {
+        if (error) setMsg('Invalid or expired reset link.')
+        else setReady(true)
+      })
+    } else {
+      setMsg('Invalid reset link.')
+    }
   }, [])
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -34,19 +43,13 @@ export default function ResetPasswordPage() {
       <div className="glass p-8 w-full max-w-md">
         <h1 className="text-2xl font-bold mb-6">Reset Password</h1>
         {!ready ? (
-          <p className="text-white/50 text-sm">Verifying reset link…</p>
+          <p className={`text-sm ${msg ? 'text-red-400' : 'text-white/50'}`}>{msg || 'Verifying reset link…'}</p>
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
-            <input
-              type="password" placeholder="New password" required minLength={6}
-              value={password} onChange={e => setPassword(e.target.value)}
-              className="input-cyber"
-            />
-            <input
-              type="password" placeholder="Confirm password" required
-              value={confirm} onChange={e => setConfirm(e.target.value)}
-              className="input-cyber"
-            />
+            <input type="password" placeholder="New password" required minLength={6}
+              value={password} onChange={e => setPassword(e.target.value)} className="input-cyber" />
+            <input type="password" placeholder="Confirm password" required
+              value={confirm} onChange={e => setConfirm(e.target.value)} className="input-cyber" />
             {msg && <p className={`text-sm ${msg.startsWith('✓') ? 'text-neon-green' : 'text-red-400'}`}>{msg}</p>}
             <button type="submit" className="btn-neon w-full py-3">Update Password</button>
           </form>
