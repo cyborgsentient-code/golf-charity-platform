@@ -23,27 +23,14 @@ export async function middleware(request: NextRequest) {
   const { data: { user } } = await supabase.auth.getUser()
   const { pathname } = request.nextUrl
 
-  // Protect dashboard and admin — redirect to login if not authenticated
+  // Protect routes — redirect to login if not authenticated
   if (!user && (pathname.startsWith('/dashboard') || pathname.startsWith('/admin') || pathname.startsWith('/onboarding') || pathname.startsWith('/profile'))) {
     return NextResponse.redirect(new URL('/auth/login', request.url))
-  }
-
-  // Enforce active subscription on dashboard — lapsed users redirected to /subscribe
-  if (user && pathname.startsWith('/dashboard')) {
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('subscription_status')
-      .eq('id', user.id)
-      .single()
-
-    if (profile && profile.subscription_status !== 'active') {
-      return NextResponse.redirect(new URL('/subscribe', request.url))
-    }
   }
 
   return response
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/admin/:path*', '/onboarding/:path*', '/profile/:path*', '/profile', '/auth/login', '/auth/signup'],
+  matcher: ['/dashboard/:path*', '/admin/:path*', '/onboarding/:path*', '/profile/:path*', '/profile'],
 }
