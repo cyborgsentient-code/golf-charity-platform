@@ -5,6 +5,8 @@ import { FadeUp, StaggerContainer, StaggerItem, HoverGlow, TiltCard, AnimatedCou
 import Navbar from '@/components/Navbar'
 import HeroContent from '@/components/HeroContent'
 
+import AuthHashRedirect from '@/components/AuthHashRedirect'
+
 export default async function Home() {
   const [featuredCharities, jackpot, totalDonated] = await Promise.all([
     getFeaturedCharities(),
@@ -14,6 +16,7 @@ export default async function Home() {
 
   return (
     <PageTransition>
+      <AuthHashRedirect />
       <Navbar />
 
       <main className="min-h-screen bg-cyber-hero pt-16">
