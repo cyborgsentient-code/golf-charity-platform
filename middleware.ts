@@ -28,11 +28,6 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL('/auth/login', request.url))
   }
 
-  // Redirect logged-in users away from auth pages
-  if (user && (pathname.startsWith('/auth/login') || pathname.startsWith('/auth/signup'))) {
-    return NextResponse.redirect(new URL('/dashboard', request.url))
-  }
-
   // Enforce active subscription on dashboard — lapsed users redirected to /subscribe
   if (user && pathname.startsWith('/dashboard')) {
     const { data: profile } = await supabase
