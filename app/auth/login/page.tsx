@@ -22,7 +22,8 @@ export default function LoginPage() {
       const supabase = createClient()
       const { error } = await supabase.auth.signInWithPassword({ email, password })
       if (error) throw error
-      window.location.href = '/dashboard'
+      router.refresh()
+      router.push('/dashboard')
     } catch (err: any) {
       setError(err.message)
     } finally {
