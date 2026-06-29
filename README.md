@@ -72,6 +72,7 @@ Cron job runs on 1st of month → winner selected → email sent
 
 
 golf-charity-platform/
+
 ├── app/
 │   ├── admin/                  # Admin panel (draws, users, verifications)
 │   ├── api/
