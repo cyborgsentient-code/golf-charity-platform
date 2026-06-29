@@ -1,3 +1,4 @@
+`markdown
 <div align="center">
 
 # ⛳ Golf Charity Platform
@@ -28,7 +29,7 @@ compete in monthly prize draws, and contribute to charity — automatically.
 - **✅ Score Verification** — submitted scores go through a verification flow before counting
 - **🎰 Monthly Prize Draws** — automated cron job selects winners from verified active subscribers
 - **🤝 Charity Contributions** — a share of every subscription is routed to active charity campaigns
-- **🏆 Campaigns & Charities** — browse active campaigns, see total contributions raised
+- **🏆 Campaigns & Charities** — browse active campaigns and see total contributions raised
 - **👤 Admin Panel** — manage users, draws, charity campaigns, and verifications
 - **📧 Transactional Emails** — draw results and subscription events via Resend
 
@@ -66,6 +67,7 @@ Cron job runs on 1st of month → winner selected → email sent
 | ☁️ Deploy | Vercel |
 
 ---
+
 ## 📁 Project Structure
 
 
@@ -97,8 +99,6 @@ golf-charity-platform/
 │   ├── email.ts                # Resend email helpers
 │   └── types.ts                # Shared TypeScript types
 └── supabase/                   # DB migrations (PLpgSQL)
-
-
 
 ---
 
@@ -138,8 +138,8 @@ stripe listen --forward-to localhost:3000/api/stripe/webhook
 | `POST` | `/api/stripe/webhook` | Stripe subscription lifecycle events |
 | `POST` | `/api/scores` | Submit a Stableford score |
 | `POST` | `/api/verifications` | Verify a submitted score |
-| `POST` | `/api/cron/monthly-draw` | Run monthly prize draw (cron) |
-| `GET` | `/api/draws` | Get draw history and results |
+| `POST` | `/api/cron/monthly-draw` | Run monthly prize draw (cron protected) |
+| `GET` | `/api/draws` | Draw history and results |
 | `POST` | `/api/donate` | Route subscription share to charity |
 | `PUT` | `/api/charity/update` | Update charity campaign details |
 | `GET/PUT` | `/api/profile` | User profile management |
