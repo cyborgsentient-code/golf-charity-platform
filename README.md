@@ -70,36 +70,32 @@ Cron job runs on 1st of month → winner selected → email sent
 
 ## 📁 Project Structure
 
+**`app/`**
+- `admin/` — Admin panel (draws, users, verifications)
+- `api/stripe/` — Stripe webhook handler
+- `api/cron/monthly-draw/` — Automated prize draw cron job
+- `api/scores/` — Score submission & retrieval
+- `api/verifications/` — Score verification flow
+- `api/draws/` — Draw history & results
+- `api/donate/` — Charity donation routing
+- `api/charity/update/` — Charity campaign management
+- `campaigns/` — Browse charity campaigns
+- `charities/` — Charity directory
+- `dashboard/` — Member dashboard
+- `subscribe/` — Subscription / checkout page
+- `onboarding/` — Post-signup onboarding
 
-golf-charity-platform/
+**`lib/`**
+- `services/` — Business logic layer
+- `supabase/` — Supabase client (server + browser)
+- `stripe.ts` — Stripe client
+- `email.ts` — Resend email helpers
+- `types.ts` — Shared TypeScript types
 
-├── app/
-│   ├── admin/                  # Admin panel (draws, users, verifications)
-│   ├── api/
-│   │   ├── stripe/             # Stripe webhook handler
-│   │   ├── cron/
-│   │   │   └── monthly-draw/   # Automated prize draw cron job
-│   │   ├── scores/             # Score submission & retrieval
-│   │   ├── verifications/      # Score verification flow
-│   │   ├── draws/              # Draw history & results
-│   │   ├── donate/             # Charity donation routing
-│   │   ├── charity/
-│   │   │   └── update/         # Charity campaign management
-│   │   └── profile/            # User profile API
-│   ├── campaigns/              # Browse charity campaigns
-│   ├── charities/              # Charity directory
-│   ├── dashboard/              # Member dashboard
-│   ├── subscribe/              # Subscription / checkout page
-│   ├── onboarding/             # Post-signup onboarding
-│   └── profile/                # User profile
-├── components/                 # Shared UI components
-├── lib/
-│   ├── services/               # Business logic layer
-│   ├── supabase/               # Supabase client (server + browser)
-│   ├── stripe.ts               # Stripe client
-│   ├── email.ts                # Resend email helpers
-│   └── types.ts                # Shared TypeScript types
-└── supabase/                   # DB migrations (PLpgSQL)
+**`supabase/`** — DB migrations (PLpgSQL)
+
+**`components/`** — Shared UI components
+
 
 ---
 
