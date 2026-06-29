@@ -66,37 +66,39 @@ Cron job runs on 1st of month → winner selected → email sent
 | ☁️ Deploy | Vercel |
 
 ---
-
 ## 📁 Project Structure
 
 
 golf-charity-platform/
 ├── app/
-│   ├── admin/              # Admin panel (draws, users, verifications)
+│   ├── admin/                  # Admin panel (draws, users, verifications)
 │   ├── api/
-│   │   ├── stripe/         # Stripe webhook handler
+│   │   ├── stripe/             # Stripe webhook handler
 │   │   ├── cron/
 │   │   │   └── monthly-draw/   # Automated prize draw cron job
-│   │   ├── scores/         # Score submission & retrieval
-│   │   ├── verifications/  # Score verification flow
-│   │   ├── draws/          # Draw history & results
-│   │   ├── donate/         # Charity donation routing
-│   │   ├── charity/update/ # Charity campaign management
-│   │   └── profile/        # User profile API
-│   ├── campaigns/          # Browse charity campaigns
-│   ├── charities/          # Charity directory
-│   ├── dashboard/          # Member dashboard
-│   ├── subscribe/          # Subscription / checkout page
-│   ├── onboarding/         # Post-signup onboarding
-│   └── profile/            # User profile
-├── components/             # Shared UI components
+│   │   ├── scores/             # Score submission & retrieval
+│   │   ├── verifications/      # Score verification flow
+│   │   ├── draws/              # Draw history & results
+│   │   ├── donate/             # Charity donation routing
+│   │   ├── charity/
+│   │   │   └── update/         # Charity campaign management
+│   │   └── profile/            # User profile API
+│   ├── campaigns/              # Browse charity campaigns
+│   ├── charities/              # Charity directory
+│   ├── dashboard/              # Member dashboard
+│   ├── subscribe/              # Subscription / checkout page
+│   ├── onboarding/             # Post-signup onboarding
+│   └── profile/                # User profile
+├── components/                 # Shared UI components
 ├── lib/
-│   ├── services/           # Business logic layer
-│   ├── supabase/           # Supabase client (server + browser)
-│   ├── stripe.ts           # Stripe client
-│   ├── email.ts            # Resend email helpers
-│   └── types.ts            # Shared TypeScript types
-└── supabase/               # DB migrations (PLpgSQL)
+│   ├── services/               # Business logic layer
+│   ├── supabase/               # Supabase client (server + browser)
+│   ├── stripe.ts               # Stripe client
+│   ├── email.ts                # Resend email helpers
+│   └── types.ts                # Shared TypeScript types
+└── supabase/                   # DB migrations (PLpgSQL)
+
+
 
 ---
 
